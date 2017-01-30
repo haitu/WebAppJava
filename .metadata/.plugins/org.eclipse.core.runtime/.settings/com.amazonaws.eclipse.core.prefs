@@ -1,0 +1,11 @@
+77ebcf93-496e-4b7c-8a5a-56b0c358fed2\:credentialProfileName=default
+cognitoIdentityId=us-east-1\:deff2781-6c46-4f46-8c58-3c019b7c910f
+cognitoIdentityPoolId=us-east-1\:d4fdc07f-94fd-4cc6-94fb-f903657f05c1
+credentialProfileAccountIds=77ebcf93-496e-4b7c-8a5a-56b0c358fed2
+currentAccount=77ebcf93-496e-4b7c-8a5a-56b0c358fed2
+currentDefaultAccount=77ebcf93-496e-4b7c-8a5a-56b0c358fed2
+currentDefaultAccount-us-gov-west-1=77ebcf93-496e-4b7c-8a5a-56b0c358fed2
+ec2PreferencesImported=true
+eclipse.preferences.version=1
+mobileAnalyticsClientId=c8047550-78d1-4d03-9ab6-c0d9c5c5e950
+regionsWithDefaultAccounts=us-gov-west-1

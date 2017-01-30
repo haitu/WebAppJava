@@ -1,0 +1,10 @@
+package db_pkg;
+
+public class Example4Delete {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
