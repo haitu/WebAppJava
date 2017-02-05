@@ -1,0 +1,13 @@
+package bpkg;
+
+import gaproject.aaproject.*;
+
+public class AppC {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Calculator cal = new gaproject.aaproject.Calculator();
+		System.out.println("Add method :" + cal.add(10, 4));
+	}
+
+}

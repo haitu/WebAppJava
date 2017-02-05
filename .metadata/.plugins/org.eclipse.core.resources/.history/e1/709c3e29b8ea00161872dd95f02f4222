@@ -1,0 +1,5 @@
+package hai.payment;
+
+public class PaymentHandler {
+
+}

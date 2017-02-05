@@ -1,0 +1,12 @@
+package bpkg;
+
+
+public class ApplicationB {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		gaproject.aaproject.Calculator cal = new gaproject.aaproject.Calculator();
+		System.out.println("Add method :" + cal.add(10, 4));
+	}
+
+}

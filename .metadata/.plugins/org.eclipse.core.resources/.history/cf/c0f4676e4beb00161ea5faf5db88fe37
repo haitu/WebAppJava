@@ -1,0 +1,82 @@
+package mergetestgid.mergetestgafid;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.ItemCollection;
+import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
+import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.UpdateItemOutcome;
+import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
+import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
+import com.amazonaws.services.dynamodbv2.document.utils.NameMap;
+import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
+import com.amazonaws.services.dynamodbv2.model.ReturnValue;
+public class DynamoAccess {
+	DynamoDB dynamoDB;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		DynamoAccess da = new DynamoAccess();
+		da.read();
+	}
+
+	
+	public void read()
+	{
+		AWSCredentials credentials = null;
+		try {
+			credentials = new ProfileCredentialsProvider().getCredentials();
+			AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+			client.withEndpoint("http://localhost:8000"); 	
+			dynamoDB = new DynamoDB(client);
+
+			readTables("Thread");
+		} catch (Exception e) {
+			System.err.println("Program failed:");
+			System.err.println(e.getMessage());
+		}
+
+		
+	}
+	private void readTables(String tableName) {
+		AWSCredentials credentials = null;
+		try {
+			credentials = new ProfileCredentialsProvider().getCredentials();
+			AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+
+			// Set the endpoint URL// need to run locally
+			client.withEndpoint("http://localhost:8000"); 	
+
+			dynamoDB = new DynamoDB(client);
+			Table table = dynamoDB.getTable("Thread");
+			QuerySpec spec = new QuerySpec()
+					.withKeyConditionExpression("ForumName = :v_name")
+					.withValueMap(new ValueMap()
+							.withString(":v_name", "Amazon S3455"));
+			ItemCollection<QueryOutcome> items = table.query(spec);
+
+			Iterator<Item> iterator = items.iterator();
+			Item item = null;
+			while (iterator.hasNext()) {
+				item = iterator.next();
+				System.out.println(item.toJSONPretty());
+			}
+
+
+		} catch (Exception e) {
+			throw new AmazonClientException(
+					"Cannot load the credentials from the credential profiles file. " +
+							"Please make sure that your credentials file is at the correct " +
+							"location (~/.aws/credentials), and is in valid format.",
+							e);
+		}
+
+	}
+}

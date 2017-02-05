@@ -1,0 +1,27 @@
+package test;
+
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+
+public class DynamoAccess {
+	DynamoDB dynamoDB;
+	public void read()
+	{
+		AWSCredentials credentials = null;
+		try {
+			credentials = new ProfileCredentialsProvider().getCredentials();
+			AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+			client.withEndpoint("http://localhost:8000"); 	
+			dynamoDB = new DynamoDB(client);
+
+
+		} catch (Exception e) {
+			System.err.println("Program failed:");
+			System.err.println(e.getMessage());
+		}
+
+		//readTables("Thread");
+	}
+}

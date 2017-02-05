@@ -1,0 +1,10 @@
+package test;
+
+public class DynamoAccess {
+
+	public static void main(String[] args) throws Exception {
+
+		//createAndDeleteTables();
+		readTables("Thread");
+	}
+}

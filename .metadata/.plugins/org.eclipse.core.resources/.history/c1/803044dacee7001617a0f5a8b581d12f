@@ -1,0 +1,10 @@
+package com.example;
+
+public interface IOutputGenerator {
+
+}
+
+
+public class CsvOutputGenerator {
+
+}
