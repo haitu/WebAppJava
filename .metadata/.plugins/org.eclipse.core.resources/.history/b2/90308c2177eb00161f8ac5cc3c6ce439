@@ -1,0 +1,16 @@
+package hai.payment.dynamodb_access;
+
+import hai.payment.model.PaymentPto;
+
+public class PaymentRepository {
+	public void createTable()
+	{
+		
+	}
+	public void insertItem(PaymentPto paymentPto )
+	{
+		
+		
+	}
+	
+}

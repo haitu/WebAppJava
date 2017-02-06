@@ -1,0 +1,5 @@
+package hai.payment.controller;
+
+public class PaymentController {
+
+}

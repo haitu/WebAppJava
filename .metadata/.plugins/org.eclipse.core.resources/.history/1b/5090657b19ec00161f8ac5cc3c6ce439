@@ -1,0 +1,145 @@
+package hai.payment.dynamodb_access;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.document.DeleteItemOutcome;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.ItemCollection;
+import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
+import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
+import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
+import com.amazonaws.services.dynamodbv2.document.utils.NameMap;
+import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ReturnValue;
+import com.amazonaws.services.dynamodbv2.model.ScanRequest;
+
+import hai.payment.common.DynamoUtil;
+import hai.payment.model.PaymentInfor;
+import hai.payment.model.PaymentPto;
+
+public class PaymentRepository {
+	DynamoDB dynamoDB;
+	AWSCredentials credentials = null;
+	static String _tableName = "Payment";
+	void init()
+	{
+		try {
+			credentials = new ProfileCredentialsProvider().getCredentials();
+			AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+			client.withEndpoint("http://localhost:8000"); 	
+			dynamoDB = new DynamoDB(client);
+
+		} catch (Exception e) {
+			System.err.println("Program failed:");
+			System.err.println(e.getMessage());
+		}
+		
+	}
+	public void createTable()
+	{
+
+		try {
+			init();
+			DynamoUtil u =  new DynamoUtil(dynamoDB); 
+			u.createTable(_tableName,10L, 5L, "userId", "N","paidDatetime","S");
+		} catch (Exception e) {
+			System.err.println("Program failed:");
+			System.err.println(e.getMessage());
+		}
+	}
+	public void insertItem(PaymentPto paymentPto )
+	{
+		init();
+		Table table = dynamoDB.getTable(_tableName);
+		try {
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			
+			Item item = new Item()
+					.withPrimaryKey("userId", paymentPto.getUserId(),"paidDatetime", dateFormat.format(date))
+					.withNumber("amount", (int)paymentPto.getPaidAmount());
+					
+			table.putItem(item);
+			
+		} catch (Exception e) {
+			System.err.println("Failed to create item in " + _tableName);
+			System.err.println(e.getMessage());
+		}
+		
+	}
+	public  List<PaymentPto> getAll()
+	{
+		init();
+		List<PaymentPto> list = new ArrayList<PaymentPto>();
+		Table table = dynamoDB.getTable(tableName);
+        
+        Map<String, Object> expressionAttributeValues = new HashMap<String, Object>();
+        expressionAttributeValues.put(":pr", 100);
+        
+        ItemCollection<ScanOutcome> items = table.scan(
+            "Price < :pr", //FilterExpression
+            "Id, Title, ProductCategory, Price", //ProjectionExpression
+            null, //ExpressionAttributeNames - not used in this example 
+            expressionAttributeValues);
+        
+        Iterator<Item> iterator = items.iterator();
+		
+
+		
+		
+		return list;
+	}
+	
+	
+//	public  List<PaymentPto> getAll()
+//	{
+//		init();
+//		long twoWeeksAgoMilli = (new Date()).getTime() - (15L*24L*60L*60L*1000L);
+//		Date twoWeeksAgo = new Date();
+//		twoWeeksAgo.setTime(twoWeeksAgoMilli);
+//		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+//		String twoWeeksAgoStr = df.format(twoWeeksAgo);
+//		
+//		List<PaymentPto> list = new ArrayList<PaymentPto>();
+//		Table table = dynamoDB.getTable(_tableName);
+//		QuerySpec spec = new QuerySpec()
+//				.withKeyConditionExpression("userId > :v_id and  paidDatetime > :v_paidTime")
+//				.withValueMap(new ValueMap()
+//						.withString(":v_id", "0")
+//						.withString(":v_paidTime", twoWeeksAgoStr))
+//				.withConsistentRead(true);;
+//		
+//		ItemCollection<QueryOutcome> items = table.query(spec);
+//
+//		Iterator<Item> iterator = items.iterator();
+//		Item item = null;
+//		while (iterator.hasNext()) {
+//			item = iterator.next();
+//			System.out.println(item.toJSONPretty());
+//			list.add(new PaymentPto());
+//		}
+//		
+//		
+//		return list;
+//	}
+	
+	public List<PaymentInfor> GetPaymentInfor()
+	{
+		List<PaymentInfor> list = new ArrayList<PaymentInfor>();
+		return list;
+	}
+}

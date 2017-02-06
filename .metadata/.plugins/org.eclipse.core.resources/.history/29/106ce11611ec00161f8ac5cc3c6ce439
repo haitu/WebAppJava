@@ -1,0 +1,8 @@
+package hai.payment.model;
+
+import org.joda.time.DateTime;
+
+public class CreditCardInfor {
+	String cardNumber;
+	DateTime expireDate;
+}

@@ -1,0 +1,11 @@
+package hai.payment.model;
+
+import java.util.List;
+
+public class UserP {
+	int userId;
+	String userName;
+	String firstName;
+	String lastName;
+	List<String> listOfCreditCard;
+}

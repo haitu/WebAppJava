@@ -1,0 +1,9 @@
+package hai.payment.model;
+
+import org.joda.time.DateTime;
+
+public class PaymentPto {
+	float paidAmount;
+	int userId;
+	DateTime paidDatetime;
+}

@@ -1,0 +1,12 @@
+package hai.payment.model;
+
+import org.joda.time.DateTime;
+
+public class PaymentInfor {
+	private float paidAmount;
+	private int userId;
+	private DateTime paidDatetime;
+	String userName;
+	String firstName;
+	String lastName;
+}

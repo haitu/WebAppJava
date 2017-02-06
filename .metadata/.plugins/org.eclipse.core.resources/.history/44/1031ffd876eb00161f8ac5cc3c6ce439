@@ -1,0 +1,5 @@
+package hai.payment.dynamodb_access;
+
+public class PaymentRepository {
+
+}

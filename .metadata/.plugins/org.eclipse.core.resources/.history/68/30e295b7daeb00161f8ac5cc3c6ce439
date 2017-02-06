@@ -1,0 +1,20 @@
+package hai.payment.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import hai.payment.model.PaymentPto;
+import net.viralpatel.spring.model.Customer;
+
+@RestController
+public class PaymentController {
+	@PostMapping(value = "/payments")
+	public ResponseEntity createCustomer(@RequestBody PaymentPto payment) {
+
+
+		return new ResponseEntity(customer, HttpStatus.OK);
+	}
+}

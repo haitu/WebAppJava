@@ -1,0 +1,56 @@
+package hai.payment.dynamodb_access;
+
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.document.DeleteItemOutcome;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
+import com.amazonaws.services.dynamodbv2.document.utils.NameMap;
+import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
+import com.amazonaws.services.dynamodbv2.model.ReturnValue;
+
+import hai.payment.model.PaymentPto;
+
+public class PaymentRepository {
+	DynamoDB dynamoDB;
+	
+	public void createTable()
+	{
+		AWSCredentials credentials = null;
+		try {
+			credentials = new ProfileCredentialsProvider().getCredentials();
+			AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+			client.withEndpoint("http://localhost:8000"); 	
+			dynamoDB = new DynamoDB(client);
+
+			Table table = dynamoDB.getTable("Thread");
+			DeleteItemSpec deleteItemSpec = new DeleteItemSpec()
+					.withPrimaryKey("ForumName", "Amazon S3455","Subject","S3 Thread 4")
+					.withConditionExpression("#rp = :val")
+					.withNameMap(new NameMap()
+							.with("#rp", "Replies"))
+					.withValueMap(new ValueMap()
+							.withNumber(":val", 0))
+					.withReturnValues(ReturnValue.ALL_OLD);
+
+			DeleteItemOutcome outcome = table.deleteItem(deleteItemSpec);
+			System.err.println("Success.");     
+
+		} catch (Exception e) {
+			System.err.println("Program failed:");
+			System.err.println(e.getMessage());
+		}
+	}
+	public void insertItem(PaymentPto paymentPto )
+	{
+		
+		
+	}
+	public  void getAll()
+	{
+		
+		
+	}
+}

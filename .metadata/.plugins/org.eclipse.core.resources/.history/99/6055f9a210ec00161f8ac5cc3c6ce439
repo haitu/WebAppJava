@@ -1,0 +1,8 @@
+package hai.payment.model;
+
+public class UserP {
+	int userId;
+	String userName;
+	String firstName;
+	String lastName;
+}

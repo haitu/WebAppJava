@@ -1,0 +1,6 @@
+package hai.payment.model;
+
+public class PaymentPto {
+	float paidAmount;
+	
+}
