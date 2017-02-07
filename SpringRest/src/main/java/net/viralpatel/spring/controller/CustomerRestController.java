@@ -2,7 +2,14 @@ package net.viralpatel.spring.controller;
 
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,23 +21,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import hai.payment.PaymentHandler;
+import hai.test.TestEmployee;
+import hai.test.TestUser;
 import net.viralpatel.spring.dao.CustomerDAO;
 import net.viralpatel.spring.model.Customer;
 
 @RestController
-public class CustomerRestController {
+public class CustomerRestController implements ApplicationContextAware{
 
-	
+	private ApplicationContext applicationContext;
+
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
+    
 	@Autowired
 	private CustomerDAO customerDAO;
 
 	
+	@Autowired
+	private TestUser tUser;
+	
 	@GetMapping("/customers")
-	public List getCustomers() {
-
-		PaymentHandler ph = new PaymentHandler();
-		ph.read();
-		
+	public List getCustomers() throws NamingException {
+ 
+//	    ApplicationContext ctx = 
+//	    	      new AnnotationConfigApplicationContext(HelloWorldConfig.class);
+//	    	   
+		TestEmployee tEmployee = applicationContext.getBean(TestEmployee.class);
 		return customerDAO.list();
 	}
 

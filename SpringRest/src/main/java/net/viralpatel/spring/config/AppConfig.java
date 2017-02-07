@@ -1,12 +1,18 @@
 package net.viralpatel.spring.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import hai.test.TestEmployee;
+
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "net.viralpatel.spring")
+@ComponentScan(basePackages = {"net.viralpatel.spring","hai.payment","hai.test"})
 public class AppConfig {
-
+	@Bean 
+	   public TestEmployee testEmployee(){
+	      return new TestEmployee("Hai");
+	   }
 }
