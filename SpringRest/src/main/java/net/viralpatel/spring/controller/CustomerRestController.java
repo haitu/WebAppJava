@@ -6,6 +6,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -41,6 +42,9 @@ public class CustomerRestController implements ApplicationContextAware{
 	
 	@Autowired
 	private TestUser tUser;
+	//static Logger logger = LogManager.getRootLogger();
+	final static Logger logger = Logger.getLogger(CustomerRestController.class);
+
 	
 	@GetMapping("/customers")
 	public List getCustomers() throws NamingException {
@@ -48,6 +52,7 @@ public class CustomerRestController implements ApplicationContextAware{
 //	    ApplicationContext ctx = 
 //	    	      new AnnotationConfigApplicationContext(HelloWorldConfig.class);
 //	    	   
+		logger.info("start getCustomers.");
 		TestEmployee tEmployee = applicationContext.getBean(TestEmployee.class);
 		return customerDAO.list();
 	}

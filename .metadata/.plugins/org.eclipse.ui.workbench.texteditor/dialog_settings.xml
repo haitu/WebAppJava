@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="PaymentPto" key="selection"/>
+		<item value="net.viralpatel.spring.dao" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="net.viralpatel.spring.dao"/>
 			<item value="PaymentPto"/>
 			<item value="reply"/>
 			<item value="productCatalogTableName"/>
@@ -15,7 +16,6 @@
 			<item value="load"/>
 			<item value="createTabl"/>
 			<item value="loadSampleForums"/>
-			<item value="forum"/>
 		</list>
 		<list key="replacehistory">
 		</list>
